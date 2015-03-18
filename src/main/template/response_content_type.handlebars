@@ -1,0 +1,10 @@
+<label for="responseContentType"></label>
+
+{{#if produces}}
+  {{#each produces}}
+    {{{this}}}
+  {{/each}}
+{{else}}
+ application/json
+{{/if}}
+

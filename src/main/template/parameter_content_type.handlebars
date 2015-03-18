@@ -1,0 +1,10 @@
+<label for="parameterContentType"></label>
+
+{{#if consumes}}
+  {{#each consumes}}
+  {{{this}}}
+  {{/each}}
+{{else}}
+  application/json
+{{/if}}
+
