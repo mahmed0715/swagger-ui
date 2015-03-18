@@ -1,84 +1,84 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Swagger UI</title>
-  <link href='css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='css/reset.css' media='print' rel='stylesheet' type='text/css'/>
-  <link href='css/screen.css' media='print' rel='stylesheet' type='text/css'/>
-  <script type="text/javascript" src="lib/shred.bundle.js"></script>
-  <script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
-  <script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
-  <script src='lib/jquery.wiggle.min.js' type='text/javascript'></script>
-  <script src='lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
-  <script src='lib/handlebars-2.0.0.js' type='text/javascript'></script>
-  <script src='lib/underscore-min.js' type='text/javascript'></script>
-  <script src='lib/backbone-min.js' type='text/javascript'></script>
-  <script src='lib/swagger-client.js' type='text/javascript'></script>
-  <script src='swagger-ui.js' type='text/javascript'></script>
-  <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
-  <script src='lib/marked.js' type='text/javascript'></script>
+    <head>
+        <title>Swagger UI</title>
+        <link href='css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
+        <link href='css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
+        <link href='css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+        <link href='css/reset.css' media='print' rel='stylesheet' type='text/css'/>
+        <link href='css/screen.css' media='print' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="lib/shred.bundle.js"></script>
+        <script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
+        <script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
+        <script src='lib/jquery.wiggle.min.js' type='text/javascript'></script>
+        <script src='lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
+        <script src='lib/handlebars-2.0.0.js' type='text/javascript'></script>
+        <script src='lib/underscore-min.js' type='text/javascript'></script>
+        <script src='lib/backbone-min.js' type='text/javascript'></script>
+        <script src='lib/swagger-client.js' type='text/javascript'></script>
+        <script src='swagger-ui.js' type='text/javascript'></script>
+        <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
+        <script src='lib/marked.js' type='text/javascript'></script>
 
-  <!-- enabling this will enable oauth2 implicit scope support -->
-  <script src='lib/swagger-oauth.js' type='text/javascript'></script>
-  <script type="text/javascript">
-    $(function () {
-      var url = window.location.search.match(/url=([^&]+)/);
-      if (url && url.length > 1) {
-        url = decodeURIComponent(url[1]);
-      } else {
-        url = "service.json";
-      }
-      window.swaggerUi = new SwaggerUi({
-        url: url,
-        dom_id: "swagger-ui-container",
-        supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
-        onComplete: function(swaggerApi, swaggerUi){
-          if(typeof initOAuth == "function") {
-            /*
-            initOAuth({
-              clientId: "your-client-id",
-              realm: "your-realms",
-              appName: "your-app-name"
+        <!-- enabling this will enable oauth2 implicit scope support -->
+        <script src='lib/swagger-oauth.js' type='text/javascript'></script>
+        <script type="text/javascript">
+            $(function() {
+                var url = window.location.search.match(/url=([^&]+)/);
+                if (url && url.length > 1) {
+                    url = decodeURIComponent(url[1]);
+                } else {
+                    url = "apidocs/service.json";
+                }
+                window.swaggerUi = new SwaggerUi({
+                    url: url,
+                    dom_id: "swagger-ui-container",
+                    supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+                    onComplete: function(swaggerApi, swaggerUi) {
+                        if (typeof initOAuth == "function") {
+                            /*
+                             initOAuth({
+                             clientId: "your-client-id",
+                             realm: "your-realms",
+                             appName: "your-app-name"
+                             });
+                             */
+                        }
+                        $('pre code').each(function(i, e) {
+                            hljs.highlightBlock(e)
+                        });
+                    },
+                    onFailure: function(data) {
+                        log("Unable to Load SwaggerUI");
+                    },
+                    docExpansion: "none",
+                    sorter: "alpha"
+                });
+
+                function addApiKeyAuthorization() {
+                    var key = $('#input_apiKey')[0].value;
+                    log("key: " + key);
+                    if (key && key.trim() != "") {
+                        log("added key " + key);
+                        window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", key, "query"));
+                    }
+                }
+
+                $('#input_apiKey').change(function() {
+                    addApiKeyAuthorization();
+                });
+
+                // if you have an apiKey you would like to pre-populate on the page for demonstration purposes...
+                /*
+                 var apiKey = "myApiKeyXXXX123456789";
+                 $('#input_apiKey').val(apiKey);
+                 addApiKeyAuthorization();
+                 */
+
+                window.swaggerUi.load();
             });
-            */
-          }
-          $('pre code').each(function(i, e) {
-            hljs.highlightBlock(e)
-          });
-        },
-        onFailure: function(data) {
-          log("Unable to Load SwaggerUI");
-        },
-        docExpansion: "none",
-        sorter : "alpha"
-      });
-
-      function addApiKeyAuthorization() {
-        var key = $('#input_apiKey')[0].value;
-        log("key: " + key);
-        if(key && key.trim() != "") {
-            log("added key " + key);
-            window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", key, "query"));
-        }
-      }
-
-      $('#input_apiKey').change(function() {
-        addApiKeyAuthorization();
-      });
-
-      // if you have an apiKey you would like to pre-populate on the page for demonstration purposes...
-      /*
-        var apiKey = "myApiKeyXXXX123456789";
-        $('#input_apiKey').val(apiKey);
-        addApiKeyAuthorization();
-      */
-
-      window.swaggerUi.load();
-  });
-  </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
 
@@ -113,6 +113,9 @@
             h2{
                 border-bottom: 1px solid #ccc;
             }
+            h2,h3,h4 {
+                text-transform: capitalize;
+            }
             .headerDoc {
                 color: #005580;
             }
@@ -138,8 +141,12 @@
                 background-color: transparent !important; }
 
             .responseBox{
-
-                color: white;
+                color: white !important;
+                // color: white;
+            }
+            .responseBox p{
+                margin-left: 15px;
+                color: white !important;
             }
             /* line 641, /app/source/stylesheets/screen.css.scss */
             .content pre, .content blockquote {
@@ -148,7 +155,7 @@
                 margin: 0 3%;
 
                 overflow: scroll;
-                color:white;
+                color:white !important;
                 clear: right;
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -204,19 +211,28 @@
                 padding-top: 20px; }
 
             .responseBox pre.highlight, .responseBox .highlight .w, .responseBox .highlight pre {
-                color: #f8f8f2 !important;
-                background-color: #272822; }
-            </style>
-</head>
+                color: white !important;
+                /*background-color: #272822;*/
+            }
+            .headerFixed{
+                min-height: 110px;
+                width: 100%;
+            }
+            .http_method_name{
+                text-transform: uppercase;
+            }
+        </style>
+    </head>
 
-<body class="swagger-section">
-<div id='header'>
-  <div class="swagger-ui-wrap">
-    <a id="logo" href="https://37coins.com">37coins | Developers</a>
-  </div>
-</div>
+    <body class="swagger-section">
+        <div id='header' style="">
+            <div class="swagger-ui-wrap">
+                <a id="logo" href="https://37coins.com">37coins | Developers</a>
+            </div>
+        </div>
+        <div class="headerFixed"></div>
 
-    <div class="container-fluid">
+        <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span2">
                     <div id="toc">
@@ -231,117 +247,98 @@
 
                         <div class="span7 documentationBox">
                             <p>
-                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
+                                37Coins provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
                             </p>
                         </div>
                         <div class="span5 responseBox">
                             <p>Api Endpoint</p>
                             <pre class="highlight">http://chains-qa.37coins.io</pre>
-                            
+
 
                         </div>
                     </div>
-                    
-                 <!--block start-->
+
+                    <!--block start-->
                     <h2>Api Description</h2>
                     <div class="row-fluid">
 
                         <div class="span7 documentationBox">
                             <p>
-                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
+                                37coins provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
                             </p>
                         </div>
                         <div class="span5 responseBox">
                             <p>Api Endpoint</p>
                             <pre class="highlight plaintext">http://chains-qa.37coins.io</pre>
-                            
+
 
                         </div>
                     </div>
                     <!--block end-->
-                    
-                    
+
+
                     <!--block start-->
                     <h2>Authentication</h2>
                     <div class="row-fluid">
 
                         <div class="span7 documentationBox">
                             <p>
-                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
+                                37coins provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
                             </p>
                         </div>
                         <div class="span5 responseBox">
                         </div>
                     </div>
                     <!--block end-->
-                  
-                     <!--block start-->
+
+                    <!--block start-->
                     <h2>Change Log</h2>
                     <div class="row-fluid">
-                    <h3>V1</h3>
+                        <h3>V1</h3>
                         <div class="span7 documentationBox">
                             <p>
-                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
+                                37coins provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
                             </p>
                         </div>
                         <div class="span5 responseBox">
                         </div>
                     </div>
                     <!--block end-->
-                    
-                    
-                     <!--Endpoint block start-->
+
+
+                    <!--Endpoint block start-->
                     <h2>Api Endpoints</h2>
-                    <div class="row-fluid">
-                    <h3>Account</h3>
-                        <div class="span7 documentationBox">
-                            <p>
-                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
-                            </p>
-                        </div>
-                        <div class="span5 responseBox">
-                        </div>
-                    </div>
-                    
-                     <div class="row-fluid">
-                    <h3>Account22</h3>
-                        <div class="span7 documentationBox">
-                            <p>
-                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
-                            </p>
-                        </div>
-                        <div class="span5 responseBox">
-                        </div>
-                    </div>
+
                     <!--block end-->
-                    
-                    
+
+                    <div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
+                    <div id="swagger-ui-container" class="swagger-ui-wrap row-fluid"></div>
                 </div><!--/span-->
 
             </div><!--/row-->
 
         </div><!--/.fluid-container-->
-<div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
-<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
 
 
-  <!-- Placed at the end of the document so the pages load faster -->
+
+        <!-- Placed at the end of the document so the pages load faster -->
         <!--<script src="../lib/jquery/jquery-1.8.3.min.js"></script>-->
-        <script src="../lib/jqueryui/jquery-ui-1.9.1.custom.min.js"></script>
+        <script src="lib/jqueryui/jquery-ui-1.9.1.custom.min.js"></script>
         <script src="javascripts/bootstrap.js"></script>
         <script src="javascripts/jquery.tocify.js"></script>
         <script src="javascripts/prettify.js"></script>
         <script>
             $(function() {
 
-                var toc = $("#toc").tocify({
-                    selectors: "h2,h3,h4,h5"
-                }).data("toc-tocify");
+                setTimeout(function() {
+                    var toc = $("#toc").tocify({
+                        selectors: "h2,h3,h4,h5"
+                    }).data("toc-tocify");
 
-                prettyPrint();
-                $(".optionName").popover({trigger: "hover"});
-
+                    prettyPrint();
+                    $(".optionName").popover({trigger: "hover"});
+                }, 1000);
             });
         </script>
-</body>
+    </body>
 </html>

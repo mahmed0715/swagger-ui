@@ -1,21 +1,22 @@
 <div class="row-fluid">
-    <h3>Account</h3>
+    <h2>{{{nickname}}}</h2> 
     <div class="span6 documentationBox">
-
+ 
         <p>
             {{{summary}}}
 
-        </p>
+        </p> 
 
         {{#if description}}
         <h4>Implementation Notes</h4>
         <p class="markdown">{{{description}}}</p>
-        {{/if}}
+        {{/if}} 
 
         <p class="http_method">
             <strong>Http Request</strong><br >
-            <span class="http_method">{{method}} {{{basePath}}}{{path}}</span>
-        </p>
+            <span class="http_method_name">{{method}}</span>
+            <span class=""> {{{basePath}}}{{path}}</span>
+        </p>   
         {{#if parameters}}
         <h4>Arguments</h4>
         <table class='fullwidth'>
@@ -30,7 +31,7 @@
                 </tr>
             </thead>
             <tbody class="operation-params">
-
+ 
             </tbody>
         </table>
         {{/if}}
@@ -58,20 +59,30 @@
         {{/if}}
     </div>
     <div class="span5 responseBox">
-        <div class="signature"></div>
-        <div class="signature-container">
-            <div class="description">
-                {{{signature}}}
-            </div>
 
+        <div class="signature-container">
+            <!--            <div class="description">
+                            {{{responseClassSignature}}}
+                        </div>-->
+            {{#if requestSampleJSON}}
             <div class="snippet">
-                <pre><code>{{sampleJSON}}</code></pre>
-                <small class="notice"></small>
+                <p>Sample Request Model</p>
+                <pre class="highlight"><code>{{requestSampleJSON}}</code></pre>
+
             </div>
+            {{/if}}
+
+            {{#if responseSampleJSON}}
+            <div class="snippet">
+                <p>Sample Response Model</p>
+                <pre class="highlight"><code>{{responseSampleJSON}}</code></pre>
+
+            </div>
+            {{/if}}
         </div>
-    </div>
-</div>
-<ul class='operations' >
+    </div> 
+</div>    
+<!--<ul class='operations' >
     <li class='{{method}} operation' id='{{parentId}}_{{nickname}}'>
         <div class='heading'>
             <h3>
@@ -174,4 +185,4 @@
             </div>
         </div>
     </li>
-</ul>
+</ul>-->

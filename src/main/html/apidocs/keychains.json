@@ -1,0 +1,488 @@
+{
+  "apiVersion" : "1",
+  "swaggerVersion" : "1.2",
+  "basePath" : "http://chains-qa.37coins.io",
+  "resourcePath" : "/keychains",
+  "apis" : [ {
+    "path" : "/keychains/{uuid}",
+    "operations" : [ {
+      "method" : "POST",
+      
+     
+      "notes":"test notes",
+      "nickname" : "createWatchWallet",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "CreateWatchWalletRequest",
+        "paramType" : "body",
+        "name" : "request",
+        "required" : true
+      }, {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ],
+      "summary" : "Invoked when the client wants to create a new kiwi account",
+      "produces" : [ "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateCallback",
+      "type" : "UpdateCallbackResponse",
+      "parameters" : [ {
+        "type" : "UpdateCallbackRequest",
+        "paramType" : "body",
+        "name" : "request",
+        "required" : true
+      }, {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ],
+      "summary" : "Invoked when the client wants to update an existing kiwi account",
+      "produces" : [ "application/json" ]
+    }, {
+      "method" : "GET",
+      "nickname" : "getWatchWallet",
+      "type" : "GetWatchWalletResponse",
+      "parameters" : [ {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ],
+      "summary" : "Invoked when the client wants a transaction to be signed",
+      "produces" : [ "application/json" ]
+    }, {
+      "method" : "DELETE",
+      "nickname" : "deleteWallet",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ],
+      "summary" : "Invoked when the client wants to delete an existing kiwi account",
+      "produces" : [ "application/json" ]
+    } ]
+  }, {
+    "path" : "/keychains/{uuid}/address",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getCurrentAddress",
+      "type" : "GetAddressResponse",
+      "parameters" : [ {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ],
+      "summary" : "Invoked when the client wants to see address",
+      "produces" : [ "application/json" ]
+    } ]
+  }, {
+    "path" : "/keychains/{uuid}/balance/{confirmations}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getBalance",
+      "type" : "GetBalanceResponse",
+      "parameters" : [ {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int32",
+        "paramType" : "path",
+        "name" : "confirmations",
+        "required" : true
+      } ],
+      "summary" : "Invoked when the client wants so confirm transaction to be signed",
+      "produces" : [ "application/json" ]
+    } ]
+  }, {
+    "path" : "/keychains/{uuid}/create",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createTransaction",
+      "type" : "CreateTransactionResponse",
+      "parameters" : [ {
+        "type" : "CreateTransactionRequest",
+        "paramType" : "body",
+        "name" : "request",
+        "required" : true
+      }, {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ],
+      "summary" : "Invoked when the client wants a create",
+      "produces" : [ "application/json" ]
+    } ]
+  }, {
+    "path" : "/keychains/{uuid}/newaddress",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getNewAddress",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ],
+      "summary" : "Invoked when the client wants a new Address",
+      "produces" : [ "application/json" ]
+    } ]
+  }, {
+    "path" : "/keychains/{uuid}/publish",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "publishTransaction",
+      "type" : "PublishTransactionResponse",
+      "parameters" : [ {
+        "type" : "PublishTransactionRequest",
+        "paramType" : "body",
+        "name" : "request",
+        "required" : true
+      }, {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ],
+      "summary" : "Invoked when the client wants a publish",
+      "produces" : [ "application/json" ]
+    } ]
+  }, {
+    "path" : "/keychains/{uuid}/transactions",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "listTransactions",
+      "type" : "ListTransactionsResponse",
+      "parameters" : [ {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int32",
+        "paramType" : "query",
+        "name" : "page"
+      }, {
+        "type" : "integer",
+        "format" : "int32",
+        "paramType" : "query",
+        "name" : "size"
+      } ],
+      "summary" : "Invoked when the client wants a transaction to be signed",
+      "produces" : [ "application/json" ]
+    } ]
+  } ],
+  "models" : {
+    "TransactionOutputResponse[]" : {
+      "id" : "TransactionOutputResponse[]",
+      "properties" : {
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "chainPath" : {
+          "type" : "string"
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "tag" : {
+          "type" : "string"
+        },
+        "n" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "TransactionOutputRequest[]" : {
+      "id" : "TransactionOutputRequest[]",
+      "properties" : {
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "to" : {
+          "type" : "string"
+        },
+        "tag" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "to" ]
+    },
+    "GetBalanceResponse" : {
+      "id" : "GetBalanceResponse",
+      "properties" : {
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "confirmations" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "GetAddressResponse" : {
+      "id" : "GetAddressResponse",
+      "properties" : {
+        "address" : {
+          "type" : "string"
+        },
+        "purpose" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TransactionResponse" : {
+      "id" : "TransactionResponse",
+      "properties" : {
+        "fee" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "time_utc" : {
+          "type" : "string"
+        },
+        "tx" : {
+          "type" : "string"
+        },
+        "time_utcAsDate" : {
+          "type" : "TransactionResponse"
+        },
+        "confirmations" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "vins" : {
+          "type" : "TransactionInputResponse[]"
+        },
+        "vouts" : {
+          "type" : "TransactionOutputResponse[]"
+        },
+        "block" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "netAmount" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "PublishTransactionRequest" : {
+      "id" : "PublishTransactionRequest",
+      "properties" : {
+        "bytes" : {
+          "type" : "string"
+        },
+        "walletAgent" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "bytes" ]
+    },
+    "PublishTransactionResponse" : {
+      "id" : "PublishTransactionResponse",
+      "properties" : {
+        "transaction" : {
+          "type" : "string"
+        }
+      }
+    },
+    "CreateTransactionResponse" : {
+      "id" : "CreateTransactionResponse",
+      "properties" : {
+        "bytes" : {
+          "type" : "string"
+        },
+        "outputChainPaths" : {
+          "type" : "String[]"
+        },
+        "chainPaths" : {
+          "type" : "String[]"
+        }
+      }
+    },
+    "TransactionInputResponse[]" : {
+      "id" : "TransactionInputResponse[]",
+      "properties" : {
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "n" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "vout_tx" : {
+          "type" : "string"
+        }
+      }
+    },
+    "String[]" : {
+      "id" : "String[]",
+      "properties" : {
+        "count" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hash" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "empty" : {
+          "type" : "boolean"
+        },
+        "value" : {
+          "type" : "char[]"
+        },
+        "offset" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "CreateWatchWalletRequest" : {
+      "id" : "CreateWatchWalletRequest",
+      "properties" : {
+        "keys" : {
+          "type" : "String[]"
+        },
+        "requiredSigCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "callback" : {
+          "type" : "string"
+        },
+        "walletAgent" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "keys" ]
+    },
+    "UpdateCallbackRequest" : {
+      "id" : "UpdateCallbackRequest",
+      "properties" : {
+        "callback" : {
+          "type" : "string"
+        },
+        "walletAgent" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GetWatchWalletResponse" : {
+      "id" : "GetWatchWalletResponse",
+      "properties" : {
+        "keys" : {
+          "type" : "String[]"
+        },
+        "requiredSigCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "callback" : {
+          "type" : "string"
+        }
+      }
+    },
+    "CreateTransactionRequest" : {
+      "id" : "CreateTransactionRequest",
+      "properties" : {
+        "minconf" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "walletAgent" : {
+          "type" : "string"
+        },
+        "outs" : {
+          "type" : "TransactionOutputRequest[]"
+        }
+      }
+    },
+    "TransactionResponse[]" : {
+      "id" : "TransactionResponse[]",
+      "properties" : {
+        "fee" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "time_utc" : {
+          "type" : "string"
+        },
+        "tx" : {
+          "type" : "string"
+        },
+        "time_utcAsDate" : {
+          "type" : "TransactionResponse"
+        },
+        "confirmations" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "vins" : {
+          "type" : "TransactionInputResponse[]"
+        },
+        "vouts" : {
+          "type" : "TransactionOutputResponse[]"
+        },
+        "block" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "netAmount" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "UpdateCallbackResponse" : {
+      "id" : "UpdateCallbackResponse",
+      "properties" : {
+        "keys" : {
+          "type" : "String[]"
+        },
+        "requiredSigCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "callback" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ListTransactionsResponse" : {
+      "id" : "ListTransactionsResponse",
+      "properties" : {
+        "next" : {
+          "type" : "string"
+        },
+        "data" : {
+          "type" : "TransactionResponse[]"
+        },
+        "prev" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

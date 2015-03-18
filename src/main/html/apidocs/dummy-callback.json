@@ -1,0 +1,100 @@
+{
+  "apiVersion" : "1",
+  "swaggerVersion" : "1.2",
+  "basePath" : "http://chains-qa.37coins.io",
+  "resourcePath" : "/dummy-callback",
+  "apis" : [ {
+    "path" : "/dummy-callback",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "callbackInvoked",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "TransactionResponse",
+        "paramType" : "body",
+        "name" : "request",
+        "required" : true
+      } ],
+      "produces" : [ "application/json" ]
+    } ]
+  } ],
+  "models" : {
+    "TransactionOutputResponse[]" : {
+      "id" : "TransactionOutputResponse[]",
+      "properties" : {
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "chainPath" : {
+          "type" : "string"
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "tag" : {
+          "type" : "string"
+        },
+        "n" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "TransactionInputResponse[]" : {
+      "id" : "TransactionInputResponse[]",
+      "properties" : {
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "n" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "vout_tx" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TransactionResponse" : {
+      "id" : "TransactionResponse",
+      "properties" : {
+        "fee" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "time_utc" : {
+          "type" : "string"
+        },
+        "tx" : {
+          "type" : "string"
+        },
+        "time_utcAsDate" : {
+          "type" : "TransactionResponse"
+        },
+        "confirmations" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "vins" : {
+          "type" : "TransactionInputResponse[]"
+        },
+        "vouts" : {
+          "type" : "TransactionOutputResponse[]"
+        },
+        "block" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "netAmount" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    }
+  }
+}
