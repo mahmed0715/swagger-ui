@@ -47,6 +47,13 @@
                         $('pre code').each(function(i, e) {
                             hljs.highlightBlock(e)
                         });
+                        //tocify code
+                        var toc = $("#toc").tocify({
+                            selectors: "h2,h3,h4,h5"
+                        }).data("toc-tocify");
+
+                        prettyPrint();
+                        $(".optionName").popover({trigger: "hover"});
                     },
                     onFailure: function(data) {
                         log("Unable to Load SwaggerUI");
@@ -141,8 +148,9 @@
                 background-color: transparent !important; }
 
             .responseBox{
-                color: white !important;
+                color: wheat !important;
                 // color: white;
+                margin-left:25px !important;
             }
             .responseBox p{
                 margin-left: 15px;
@@ -220,6 +228,9 @@
             }
             .http_method_name{
                 text-transform: uppercase;
+            }
+            mark.highlight{
+                background: #fbf2ff;
             }
         </style>
     </head>
@@ -331,13 +342,13 @@
             $(function() {
 
                 setTimeout(function() {
-                    var toc = $("#toc").tocify({
-                        selectors: "h2,h3,h4,h5"
-                    }).data("toc-tocify");
-
-                    prettyPrint();
-                    $(".optionName").popover({trigger: "hover"});
-                }, 1000);
+//                    var toc = $("#toc").tocify({
+//                        selectors: "h2,h3,h4,h5"
+//                    }).data("toc-tocify");
+//
+//                    prettyPrint();
+//                    $(".optionName").popover({trigger: "hover"});
+                }, 2000);
             });
         </script>
     </body>
