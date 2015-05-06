@@ -15,7 +15,7 @@ class SwaggerUi extends Backbone.Router
     if options.dom_id?
       @dom_id = options.dom_id
       delete options.dom_id
-
+      
     if not options.supportedSubmitMethods?
       options.supportedSubmitMethods = ['get','put','post','delete','head','options','patch']
 
