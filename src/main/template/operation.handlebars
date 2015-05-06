@@ -62,16 +62,19 @@
     </div>
     <div class="span5 responseBox">
 
-        <div class="signature-container">
-            <!--            <div class="description">
-                            {{{responseClassSignature}}}
-                        </div>-->
-            {{#if requestSampleJSON}}
-            <div class="snippet">
-                <p>Sample Request Model</p>
-                <pre class="highlight"><code>{{requestSampleJSON}}</code></pre>
 
-            </div>
+        <div class="signature-container">
+                    <div class="model-signature-request" >
+                    
+</div>
+<br>
+                    <div class="model-signature-response"></div>
+           {{#if responseClassSignature}}
+           
+                <div class="operation-params-request"></div>
+                
+
+            
             {{/if}}
 
             {{#if responseSampleJSON}}

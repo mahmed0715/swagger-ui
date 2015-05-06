@@ -452,7 +452,7 @@
 }
 .swagger-section .swagger-ui-wrap h1 {
   color: black;
-  font-size: 1.5em;
+  /*font-size: 1.5em;*/
   line-height: 1.3em;
   padding: 10px 0 10px 0;
   font-family: "Droid Sans", sans-serif;
@@ -476,7 +476,7 @@
 }
 .swagger-section .swagger-ui-wrap h2 {
   color: black;
-  font-size: 1.3em;
+  /*font-size: 1.3em;*/
   padding: 10px 0 10px 0;
 }
 .swagger-section .swagger-ui-wrap h2 a {

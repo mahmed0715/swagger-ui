@@ -28,7 +28,7 @@
                 if (url && url.length > 1) {
                     url = decodeURIComponent(url[1]);
                 } else {
-                    url = "apidocs/service.json";
+                    url = "apidocs/swagger.json";
                 }
                 window.swaggerUi = new SwaggerUi({
                     url: url,
@@ -48,12 +48,13 @@
                             hljs.highlightBlock(e)
                         });
                         //tocify code
-                        var toc = $("#toc").tocify({
-                            selectors: "h2,h3,h4,h5"
-                        }).data("toc-tocify");
-
-                        prettyPrint();
-                        $(".optionName").popover({trigger: "hover"});
+//                        var toc = $("#toc").tocify({
+//                            selectors: "h1,h2,h3",
+//                            scrollTo:100
+//                        }).data("toc-tocify");
+//
+//                        prettyPrint();
+//                        $(".optionName").popover({trigger: "hover"});
                     },
                     onFailure: function(data) {
                         log("Unable to Load SwaggerUI");
@@ -61,7 +62,13 @@
                     docExpansion: "none",
                     sorter: "alpha"
                 });
+$(document).on('loaded-static',function(){ console.log('triggered'); toc = $("#toc").tocify({
+                            selectors: "h1,h2,h3",
+                            scrollTo:100
+                        }).data("toc-tocify");
 
+                        prettyPrint();
+                        $(".optionName").popover({trigger: "hover"});});
                 function addApiKeyAuthorization() {
                     var key = $('#input_apiKey')[0].value;
                     log("key: " + key);
@@ -83,6 +90,11 @@
                  */
 
                 window.swaggerUi.load();
+                
+             /*   $.get( "apidocs/static/static.html", function( data ) {
+  $( "#static" ).html( data );
+ // alert( "Load was performed." );
+});*/
             });
         </script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -117,10 +129,10 @@
                 padding-left: 10px;
                 font-size: 14px;
             }
-            h2{
+            h1,h2{
                 border-bottom: 1px solid #ccc;
             }
-            h2,h3,h4 {
+            h1,h2,h3,h4 {
                 text-transform: capitalize;
             }
             .headerDoc {
@@ -133,9 +145,23 @@
                     width: 100%;
                     margin: 0px 0px 20px 0px;
                 }
+				.dark-box{
+				width:0px !important;
+				}
+				.responseBox p{
+                color: black !important;
+                
+                margin-left:25px !important;
             }
+            }
+			@media (min-width: 767px){
+				.responseBox p{
+					margin-left: 15px;
+					color: white !important;
+				}
+			}
             .dark-box {
-
+width: 32%;
                 background-color: #18355C;
                 position: fixed;
                 right: 0;
@@ -152,10 +178,10 @@
                 // color: white;
                 margin-left:25px !important;
             }
-            .responseBox p{
-                margin-left: 15px;
-                color: white !important;
-            }
+			.responseBox > div{
+				margin-left:50px;
+			}
+            
             /* line 641, /app/source/stylesheets/screen.css.scss */
             .content pre, .content blockquote {
                 background-color: transparent;
@@ -249,80 +275,20 @@
                     <div id="toc">
                     </div><!--/.well -->
                 </div><!--/span-->
-                <div class="dark-box" style="width: 35%">
+                <div class="dark-box" style="">
                 </div>
                 <div class="span10 content">
 
-                    <h2>Introduction</h2>
-                    <div class="row-fluid">
-
-                        <div class="span7 documentationBox">
-                            <p>
-                                37Coins provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
-                            </p>
-                        </div>
-                        <div class="span5 responseBox">
-                            <p>Api Endpoint</p>
-                            <pre class="highlight">http://chains-qa.37coins.io</pre>
-
-
-                        </div>
-                    </div>
-
-                    <!--block start-->
-                    <h2>Api Description</h2>
-                    <div class="row-fluid">
-
-                        <div class="span7 documentationBox">
-                            <p>
-                                37coins provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
-                            </p>
-                        </div>
-                        <div class="span5 responseBox">
-                            <p>Api Endpoint</p>
-                            <pre class="highlight plaintext">http://chains-qa.37coins.io</pre>
-
-
-                        </div>
-                    </div>
-                    <!--block end-->
-
-
-                    <!--block start-->
-                    <h2>Authentication</h2>
-                    <div class="row-fluid">
-
-                        <div class="span7 documentationBox">
-                            <p>
-                                37coins provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
-                            </p>
-                        </div>
-                        <div class="span5 responseBox">
-                        </div>
-                    </div>
-                    <!--block end-->
-
-                    <!--block start-->
-                    <h2>Change Log</h2>
-                    <div class="row-fluid">
-                        <h3>V1</h3>
-                        <div class="span7 documentationBox">
-                            <p>
-                                37coins provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
-                            </p>
-                        </div>
-                        <div class="span5 responseBox">
-                        </div>
-                    </div>
-                    <!--block end-->
+                    <span id="static">
+                    </span>
 
 
                     <!--Endpoint block start-->
-                    <h2>Api Endpoints</h2>
+                    
 
                     <!--block end-->
 
-                    <div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
+                    <!--<div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>-->
                     <div id="swagger-ui-container" class="swagger-ui-wrap row-fluid"></div>
                 </div><!--/span-->
 

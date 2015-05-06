@@ -1,0 +1,54 @@
+
+<h2>Introduction</h2>
+<div class="row-fluid">
+
+    <div class="span7 documentationBox">
+        <p>
+            <!--introduction goes here-->
+                       
+            "Chains" is a REST+JSON API to create and manage watch only wallets, generate new addresses, create (but not sign) and publish transactions, send notifications and query wallet balance and transaction list.
+        </p>
+    </div>
+</div>
+
+<!--block start-->
+<h2>API Description</h2>
+<div class="container row-fluid">
+    <div class="span7 documentationBox">
+        <p>
+            <!--api description goes here-->
+        </p>
+    </div>
+    <div class="span4 color-white float-right">
+         <div class="signature-container margin-left-10">
+            <p>QA API Endpoint</p>
+            <pre class="highlight">http://chains-qa.37coins.io</pre>
+            <p>Prod API Endpoint</p>
+            <pre class="highlight">https://chains.37coins.io</pre>
+        </div>
+    </div>
+</div>
+<!--block end-->
+
+
+
+<!--block start-->
+<h2>Authentication</h2>
+<div class="row-fluid">
+
+    <div class="span7 documentationBox">
+        <p>
+            "Chains" expects some of the requests to be signed with a known RSA key. The client has to provide additional headers in the request:<br/>
+            - X-37Coins-Nonce : nonce used to generate the signature<br/>
+            - X-37Coins-Signature : a signature created by signing the word "token" + nonce string. Nonce is usually a timestamp. Example of string to be signed: token12569537329.<br/>
+        </p>
+    </div>
+    <div class="span4 responseBox">
+    </div>
+</div>
+<!--block end-->
+
+
+<!-- Section Change Log does not make any sense so far -->
+
+<h2>API Endpoints</h2>

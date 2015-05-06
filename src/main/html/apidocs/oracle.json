@@ -1,0 +1,231 @@
+{
+  "apiVersion" : "1",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/api",
+  "resourcePath" : "/account",
+  "apis" : [ {
+    "path" : "/account/{uuid}",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "newAccount",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "NewAccountRequest",
+        "paramType" : "body",
+        "name" : "request",
+        "required" : true
+      }, {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/account/{uuid}/pin",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "setPin",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/account/{uuid}/pin/reset",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "resetPin",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      }, {
+        "type" : "string",
+        "paramType" : "header",
+        "name" : "signature"
+      } ]
+    } ]
+  }, {
+    "path" : "/account/{uuid}/transactions",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "signTransaction",
+      "type" : "SignTransactionResponse",
+      "parameters" : [ {
+        "type" : "SignTransactionRequest",
+        "paramType" : "body",
+        "name" : "request",
+        "required" : true
+      }, {
+        "type" : "string",
+        "paramType" : "path",
+        "name" : "uuid",
+        "required" : true
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "Locale" : {
+      "id" : "Locale",
+      "properties" : {
+        "unicodeLocaleKeys" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "uniqueItems" : true
+        },
+        "country" : {
+          "type" : "string"
+        },
+        "extension" : {
+          "type" : "string"
+        },
+        "displayName" : {
+          "type" : "string"
+        },
+        "language" : {
+          "type" : "string"
+        },
+        "displayVariant" : {
+          "type" : "string"
+        },
+        "displayLanguage" : {
+          "type" : "string"
+        },
+        "script" : {
+          "type" : "string"
+        },
+        "iSO3Country" : {
+          "type" : "string"
+        },
+        "unicodeLocaleAttributes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "uniqueItems" : true
+        },
+        "displayCountry" : {
+          "type" : "string"
+        },
+        "variant" : {
+          "type" : "string"
+        },
+        "extensionKeys" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "uniqueItems" : true
+        },
+        "displayScript" : {
+          "type" : "string"
+        },
+        "iSO3Language" : {
+          "type" : "string"
+        },
+        "unicodeLocaleType" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DeferrableResponse" : {
+      "id" : "DeferrableResponse",
+      "properties" : {
+        "notificationUrl" : {
+          "type" : "string"
+        },
+        "notifiedByPhone" : {
+          "type" : "DeferrableResponse"
+        },
+        "spendId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string",
+          "enum" : [ "SUCCESS", "PENDING_EXT_CONFIRM", "REJECTED", "DEFERRED", "ERROR", "CANCELLED" ]
+        }
+      }
+    },
+    "SignTransactionRequest" : {
+      "id" : "SignTransactionRequest",
+      "properties" : {
+        "txBytes" : {
+          "type" : "string"
+        },
+        "callback" : {
+          "type" : "string"
+        },
+        "outputKeyPaths" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "keyPaths" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "SignTransactionResponse" : {
+      "id" : "SignTransactionResponse",
+      "properties" : {
+        "notificationUrl" : {
+          "type" : "string"
+        },
+        "notifiedByPhone" : {
+          "type" : "DeferrableResponse"
+        },
+        "txBytes" : {
+          "type" : "string"
+        },
+        "spendId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string",
+          "enum" : [ "SUCCESS", "PENDING_EXT_CONFIRM", "REJECTED", "DEFERRED", "ERROR", "CANCELLED" ]
+        }
+      }
+    },
+    "NewAccountRequest" : {
+      "id" : "NewAccountRequest",
+      "properties" : {
+        "xpubs" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "phone" : {
+          "type" : "string"
+        },
+        "limit" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "locale" : {
+          "type" : "Locale"
+        }
+      }
+    }
+  }
+}

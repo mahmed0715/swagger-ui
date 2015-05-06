@@ -1,0 +1,549 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.2.3"
+  },
+  "host" : "localhost:8001",
+  "basePath" : "/",
+  "tags" : [ {
+    "name" : "keychains"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/keychains/{uuid}" : {
+      "get" : {
+        "tags" : [ "keychains" ],
+        "summary" : "Retrieve a watch wallet",
+        "description" : "",
+        "operationId" : "getWatchWallet",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/GetWatchWalletResponse"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "keychains" ],
+        "summary" : "Create a watch wallet",
+        "description" : "",
+        "operationId" : "createWatchWallet",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/CreateWatchWalletRequest"
+          }
+        }, {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "keychains" ],
+        "summary" : "Update a wallet's callback URL",
+        "description" : "",
+        "operationId" : "updateCallback",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/UpdateCallbackRequest"
+          }
+        }, {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/UpdateCallbackResponse"
+            }
+          }
+        }
+      }
+    },
+    "/keychains/{uuid}/address" : {
+      "get" : {
+        "tags" : [ "keychains" ],
+        "summary" : "Retrieves a wallet bitcoin address",
+        "description" : "The returned address has never received a transaction. This is useful to retrieve an address to give to another person that wants to send funds to the wallet.",
+        "operationId" : "getCurrentAddress",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/GetAddressResponse"
+            }
+          }
+        }
+      }
+    },
+    "/keychains/{uuid}/balance/{confirmations}" : {
+      "get" : {
+        "tags" : [ "keychains" ],
+        "summary" : "Return the wallet's balance",
+        "description" : "",
+        "operationId" : "getBalance",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "confirmations",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/GetBalanceResponse"
+            }
+          }
+        }
+      }
+    },
+    "/keychains/{uuid}/create" : {
+      "post" : {
+        "tags" : [ "keychains" ],
+        "summary" : "Create a Transaction",
+        "description" : "",
+        "operationId" : "createTransaction",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/CreateTransactionRequest"
+          }
+        }, {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CreateTransactionResponse"
+            }
+          }
+        }
+      }
+    },
+    "/keychains/{uuid}/publish" : {
+      "post" : {
+        "tags" : [ "keychains" ],
+        "summary" : "Publish a Transaction",
+        "description" : "",
+        "operationId" : "publishTransaction",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/PublishTransactionRequest"
+          }
+        }, {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PublishTransactionResponse"
+            }
+          }
+        }
+      }
+    },
+    "/keychains/{uuid}/transactions" : {
+      "get" : {
+        "tags" : [ "keychains" ],
+        "summary" : "Retrieve a list of wallet's transactions",
+        "description" : "",
+        "operationId" : "listTransactions",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ListTransactionsResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "TransactionOutputRequest" : {
+      "required" : [ "amount", "to" ],
+      "properties" : {
+        "to" : {
+          "type" : "string",
+          "example" : "13rDLnfHy3FdSoZKJ9TPfdFZRpGcjgiTWJ"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : "32000",
+          "minimum" : 1.0
+        },
+        "tag" : {
+          "type" : "string",
+          "example" : "fee"
+        }
+      }
+    },
+    "TransactionInputResponse" : {
+      "required" : [ "n", "vout_tx" ],
+      "properties" : {
+        "address" : {
+          "type" : "string",
+          "example" : "3uBv23WWSbGBvRjdr2vTSvhE83zNQauQXD"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : "365730000"
+        },
+        "n" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : "0"
+        },
+        "vout_tx" : {
+          "type" : "string",
+          "example" : "3f7f9ba3073cc9247b414e31da803b07cf39bfcb50b695fe63648a2ffb31dcc7"
+        }
+      }
+    },
+    "GetBalanceResponse" : {
+      "required" : [ "amount", "confirmations" ],
+      "properties" : {
+        "confirmations" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : "1"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : "45000"
+        }
+      }
+    },
+    "GetAddressResponse" : {
+      "required" : [ "address", "purpose" ],
+      "properties" : {
+        "purpose" : {
+          "type" : "string",
+          "example" : "receive"
+        },
+        "address" : {
+          "type" : "string",
+          "example" : "3EUdvkbzG3ZcyJpYJtEEgrHFQWT5L1Wqa5"
+        }
+      }
+    },
+    "PublishTransactionRequest" : {
+      "required" : [ "bytes" ],
+      "properties" : {
+        "walletAgent" : {
+          "type" : "string",
+          "example" : "MyWallet 2.0"
+        },
+        "bytes" : {
+          "type" : "string",
+          "example" : "298fe934..."
+        }
+      }
+    },
+    "PublishTransactionResponse" : {
+      "required" : [ "transaction" ],
+      "properties" : {
+        "transaction" : {
+          "type" : "string",
+          "example" : "298fe934..."
+        }
+      }
+    },
+    "TransactionResponse" : {
+      "required" : [ "block", "confirmations", "time_utc", "tx" ],
+      "properties" : {
+        "tx" : {
+          "type" : "string",
+          "example" : "9d5f4c959122127b7d0c1aa668cfcbc8b80240edbf814f4777f68de3c3129c9b"
+        },
+        "block" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : "271730"
+        },
+        "confirmations" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : "5931"
+        },
+        "time_utc" : {
+          "type" : "string",
+          "example" : "2014-08-04T10:58:39Z"
+        },
+        "vins" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TransactionInputResponse"
+          }
+        },
+        "vouts" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TransactionOutputResponse"
+          }
+        },
+        "fee" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : "10000"
+        },
+        "netAmount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : "-21000000"
+        }
+      }
+    },
+    "CreateTransactionResponse" : {
+      "required" : [ "bytes", "chainPaths", "outputChainPaths" ],
+      "properties" : {
+        "bytes" : {
+          "type" : "string",
+          "example" : "298fe934..."
+        },
+        "chainPaths" : {
+          "type" : "array",
+          "example" : "[0'/234]",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "outputChainPaths" : {
+          "type" : "array",
+          "example" : "[null,1'/22]",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "CreateWatchWalletRequest" : {
+      "required" : [ "keys", "requiredSigCount" ],
+      "properties" : {
+        "walletAgent" : {
+          "type" : "string",
+          "example" : "MyWallet 2.0"
+        },
+        "keys" : {
+          "type" : "array",
+          "example" : "[xpub1, xpub2, xpub3]",
+          "description" : "xpubs should be account keys",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "requiredSigCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : "2",
+          "minimum" : 1.0
+        },
+        "callback" : {
+          "type" : "string",
+          "example" : "https://someserver.com/path/<uuid>"
+        }
+      }
+    },
+    "UpdateCallbackRequest" : {
+      "properties" : {
+        "walletAgent" : {
+          "type" : "string",
+          "example" : "MyWallet 2.0"
+        },
+        "callback" : {
+          "type" : "string",
+          "example" : "https://someserver.com/path/<uuid>"
+        }
+      }
+    },
+    "GetWatchWalletResponse" : {
+      "required" : [ "keys", "requiredSigCount" ],
+      "properties" : {
+        "keys" : {
+          "type" : "array",
+          "example" : "[xpub1, xpub2, xpub3]",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "requiredSigCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : "2"
+        },
+        "callback" : {
+          "type" : "string",
+          "example" : "https://someserver.com/path/<uuid>"
+        }
+      }
+    },
+    "TransactionOutputResponse" : {
+      "required" : [ "address", "amount", "n" ],
+      "properties" : {
+        "address" : {
+          "type" : "string",
+          "example" : "3Hc4a4X4eYbGx1i6pJGC7w3V8TpHSgtVtq"
+        },
+        "chainPath" : {
+          "type" : "string",
+          "example" : "1'/234"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : "210000000"
+        },
+        "n" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : "0"
+        },
+        "tag" : {
+          "type" : "string",
+          "example" : "fee"
+        }
+      }
+    },
+    "CreateTransactionRequest" : {
+      "required" : [ "minconf" ],
+      "properties" : {
+        "walletAgent" : {
+          "type" : "string",
+          "example" : "MyWallet 2.0"
+        },
+        "outs" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TransactionOutputRequest"
+          }
+        },
+        "minconf" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : "1"
+        }
+      }
+    },
+    "UpdateCallbackResponse" : {
+      "required" : [ "keys", "requiredSigCount" ],
+      "properties" : {
+        "keys" : {
+          "type" : "array",
+          "example" : "[xpub1, xpub2, xpub3]",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "requiredSigCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : "2"
+        },
+        "callback" : {
+          "type" : "string",
+          "example" : "https://someserver.com/path/<uuid>"
+        }
+      }
+    },
+    "ListTransactionsResponse" : {
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TransactionResponse"
+          }
+        },
+        "prev" : {
+          "type" : "string",
+          "example" : "/keychains/<uuid>/transactions/?page=0&size=10"
+        },
+        "next" : {
+          "type" : "string",
+          "example" : "/keychains/<uuid>/transactions/?page=2&size=10"
+        }
+      }
+    }
+  }
+}

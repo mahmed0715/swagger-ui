@@ -88,6 +88,7 @@ class OperationView extends Backbone.View
           if schema.indexOf('#/definitions/') is 0
             schema = schema.substring('#/definitions/'.length)
         @model.responseMessages.push {code: code, message: value.description, responseModel: schema }
+         
 
     if typeof @model.responseMessages is 'undefined'
       @model.responseMessages = []
@@ -111,15 +112,18 @@ class OperationView extends Backbone.View
         isParam: false
         signature: @model.responseClassSignature
 
-
+        
     $(@el).html(Handlebars.templates.operation(@model))
 
     if signatureModel
       responseSignatureView = new SignatureView({model: signatureModel, tagName: 'div'})
       $('.model-signature', $(@el)).append responseSignatureView.render().el
+      responseSignatureView = new SignatureResponseView({model: signatureModel, tagName: 'div'})
+      $('.model-signature-response', $(@el)).append responseSignatureView.render().el
     else
       @model.responseClassSignature = 'string'
-      $('.model-signature', $(@el)).html(@model.type)
+      $('.model-signature,.model-signature-response', $(@el)).html(@model.type)
+      
 
     contentTypeModel =
       isParam: false
@@ -148,6 +152,9 @@ class OperationView extends Backbone.View
     # Render each parameter
     @addParameter param, contentTypeModel.consumes for param in @model.parameters
 
+    # Show  each parameter request model
+    @showParameterModel param, contentTypeModel.consumes for param in @model.parameters
+
     # Render each response code
     @addStatusCode statusCode for statusCode in @model.responseMessages
 
@@ -158,6 +165,15 @@ class OperationView extends Backbone.View
     param.consumes = consumes
     paramView = new ParameterView({model: param, tagName: 'tr', readOnly: @model.isReadOnly})
     $('.operation-params', $(@el)).append paramView.render().el
+    responseSignatureView = new SignatureResponseView({model: param, tagName: 'div'})
+    $('.operation-params-request', $(@el)).append responseSignatureView.render().el
+  
+  showParameterModel: (param, consumes) ->
+    # Render a parameter
+    param.consumes = consumes
+    paramView = new ParameterRequestView({model: param,  readOnly: @model.isReadOnly, })
+    $('.model-signature-request', $(@el)).append paramView.render().el
+    
 
   addStatusCode: (statusCode) ->
     # Render status codes

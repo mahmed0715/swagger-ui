@@ -1,0 +1,10 @@
+{
+  "swaggerVersion" : "1.2",
+  "apiVersion" : "1",
+ "basePath":"/swagger-ui-master/dist/apidocs/",
+  "apis" : [ {
+    "path" : "keychains.{format}",
+   
+    "description": "Operations about store"
+  } ]
+}

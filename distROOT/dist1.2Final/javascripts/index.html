@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Swagger UI</title>
+  <link href='css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/reset.css' media='print' rel='stylesheet' type='text/css'/>
+  <link href='css/screen.css' media='print' rel='stylesheet' type='text/css'/>
+  <script type="text/javascript" src="lib/shred.bundle.js"></script>
+  <script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
+  <script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
+  <script src='lib/jquery.wiggle.min.js' type='text/javascript'></script>
+  <script src='lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
+  <script src='lib/handlebars-2.0.0.js' type='text/javascript'></script>
+  <script src='lib/underscore-min.js' type='text/javascript'></script>
+  <script src='lib/backbone-min.js' type='text/javascript'></script>
+  <script src='lib/swagger-client.js' type='text/javascript'></script>
+  <script src='swagger-ui.js' type='text/javascript'></script>
+  <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
+  <script src='lib/marked.js' type='text/javascript'></script>
+
+  <!-- enabling this will enable oauth2 implicit scope support -->
+  <script src='lib/swagger-oauth.js' type='text/javascript'></script>
+  <script type="text/javascript">
+    $(function () {
+      var url = window.location.search.match(/url=([^&]+)/);
+      if (url && url.length > 1) {
+        url = decodeURIComponent(url[1]);
+      } else {
+        url = "http://localhost/kiwi/apidocs/apis/service.json";
+      }
+      window.swaggerUi = new SwaggerUi({
+        url: url,
+        dom_id: "swagger-ui-container",
+        supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+        onComplete: function(swaggerApi, swaggerUi){
+          if(typeof initOAuth == "function") {
+            /*
+            initOAuth({
+              clientId: "your-client-id",
+              realm: "your-realms",
+              appName: "your-app-name"
+            });
+            */
+          }
+          $('pre code').each(function(i, e) {
+            hljs.highlightBlock(e)
+          });
+        },
+        onFailure: function(data) {
+          log("Unable to Load SwaggerUI");
+        },
+        docExpansion: "none",
+        sorter : "alpha"
+      });
+
+      function addApiKeyAuthorization() {
+        var key = $('#input_apiKey')[0].value;
+        log("key: " + key);
+        if(key && key.trim() != "") {
+            log("added key " + key);
+            window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", key, "query"));
+        }
+      }
+
+      $('#input_apiKey').change(function() {
+        addApiKeyAuthorization();
+      });
+
+      // if you have an apiKey you would like to pre-populate on the page for demonstration purposes...
+      /*
+        var apiKey = "myApiKeyXXXX123456789";
+        $('#input_apiKey').val(apiKey);
+        addApiKeyAuthorization();
+      */
+
+      window.swaggerUi.load();
+  });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!--<link href="styles/screen.css" rel="stylesheet" type="text/css" media="screen">-->
+
+        <!-- Le styles -->
+        <link href="styles/bootstrap.css" rel="stylesheet">
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/black-tie/jquery-ui.css" rel="stylesheet">
+        <link href="stylesheets/jquery.tocify.css" rel="stylesheet">
+        <link href="styles/prettify.css" type="text/css" rel="stylesheet" />
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons -->
+        <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        <style>
+            body {
+                font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+                /*padding-top: 20px;*/
+            }
+            p {
+                padding-left: 10px;
+                font-size: 14px;
+            }
+            h2{
+                border-bottom: 1px solid #ccc;
+            }
+            .headerDoc {
+                color: #005580;
+            }
+
+            @media (max-width: 767px) {
+                #toc {
+                    position: relative;
+                    width: 100%;
+                    margin: 0px 0px 20px 0px;
+                }
+            }
+            .dark-box {
+
+                background-color: #18355C;
+                position: fixed;
+                right: 0;
+                top: -50px;
+                bottom: 0; 
+                z-index: -11;
+            }
+            .highlight .err {
+                color: #ac4142;
+                background-color: transparent !important; }
+
+            .responseBox{
+
+                color: white;
+            }
+            /* line 641, /app/source/stylesheets/screen.css.scss */
+            .content pre, .content blockquote {
+                background-color: transparent;
+                padding: 10px;
+                margin: 0 3%;
+
+                overflow: scroll;
+                color:white;
+                clear: right;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box; }
+            /* line 657, /app/source/stylesheets/screen.css.scss */
+            .content pre > p, .content blockquote > p {
+                margin: 0; }
+            /* line 659, /app/source/stylesheets/screen.css.scss */
+            .content pre a, .content blockquote a {
+                color: #fff;
+                text-decoration: none;
+                border-bottom: dashed 1px #ccc; }
+            /* line 664, /app/source/stylesheets/screen.css.scss */
+            .content pre .shell, .content blockquote .shell {
+                font-size: 20px; }
+            /* line 668, /app/source/stylesheets/screen.css.scss */
+            .content blockquote {
+                padding: 0; }
+            /* line 673, /app/source/stylesheets/screen.css.scss */
+            .content pre {
+                margin-bottom: 20px;
+                border-radius: 3px;
+                background-color: #132948;
+                box-shadow: inset 0px 1px 2px #10223c;
+                overflow: auto; }
+            /* line 682, /app/source/stylesheets/screen.css.scss */
+            .content pre::-webkit-scrollbar-track {
+                background-color: #132948;
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px; }
+            /* line 689, /app/source/stylesheets/screen.css.scss */
+            .content pre::-webkit-scrollbar {
+                width: 12px;
+                padding: 10px; }
+            /* line 695, /app/source/stylesheets/screen.css.scss */
+            .content pre::-webkit-scrollbar-thumb {
+                border-radius: 3px;
+                background-color: #10223c; }
+            /* line 701, /app/source/stylesheets/screen.css.scss */
+            .content .shell {
+                white-space: nowrap;
+                display: inline-block; }
+            /* line 706, /app/source/stylesheets/screen.css.scss */
+            .content blockquote {
+                overflow: hidden; }
+            /* line 708, /app/source/stylesheets/screen.css.scss */
+            .content blockquote > p {
+                padding-bottom: 10px;
+                color: white;
+                font-weight: bold; }
+            /* line 714, /app/source/stylesheets/screen.css.scss */
+            .content blockquote + p {
+                padding-top: 20px; }
+
+            .responseBox pre.highlight, .responseBox .highlight .w, .responseBox .highlight pre {
+                color: #f8f8f2 !important;
+                background-color: #272822; }
+            </style>
+</head>
+
+<body class="swagger-section">
+<div id='header'>
+  <div class="swagger-ui-wrap">
+    <a id="logo" href="https://37coins.com">37coins | Developers</a>
+  </div>
+</div>
+
+    <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
+                    <div id="toc">
+                    </div><!--/.well -->
+                </div><!--/span-->
+                <div class="dark-box" style="width: 35%">
+                </div>
+                <div class="span10 content">
+
+                    <h2>Introduction</h2>
+                    <div class="row-fluid">
+
+                        <div class="span7 documentationBox">
+                            <p>
+                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
+                            </p>
+                        </div>
+                        <div class="span5 responseBox">
+                            <p>Api Endpoint</p>
+                            <pre class="highlight">http://chains-qa.37coins.io</pre>
+                            
+
+                        </div>
+                    </div>
+                    
+                 <!--block start-->
+                    <h2>Api Description</h2>
+                    <div class="row-fluid">
+
+                        <div class="span7 documentationBox">
+                            <p>
+                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
+                            </p>
+                        </div>
+                        <div class="span5 responseBox">
+                            <p>Api Endpoint</p>
+                            <pre class="highlight plaintext">http://chains-qa.37coins.io</pre>
+                            
+
+                        </div>
+                    </div>
+                    <!--block end-->
+                    
+                    
+                    <!--block start-->
+                    <h2>Authentication</h2>
+                    <div class="row-fluid">
+
+                        <div class="span7 documentationBox">
+                            <p>
+                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
+                            </p>
+                        </div>
+                        <div class="span5 responseBox">
+                        </div>
+                    </div>
+                    <!--block end-->
+                  
+                     <!--block start-->
+                    <h2>Change Log</h2>
+                    <div class="row-fluid">
+                    <h3>V1</h3>
+                        <div class="span7 documentationBox">
+                            <p>
+                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
+                            </p>
+                        </div>
+                        <div class="span5 responseBox">
+                        </div>
+                    </div>
+                    <!--block end-->
+                    
+                    
+                     <!--Endpoint block start-->
+                    <h2>Api Endpoints</h2>
+                    <div class="row-fluid">
+                    <h3>Account</h3>
+                        <div class="span7 documentationBox">
+                            <p>
+                                Coinbase provides a simple and powerful REST API to integrate bitcoin payments into your business or application.
+                            </p>
+                        </div>
+                        <div class="span5 responseBox">
+                        </div>
+                    </div>
+                    <!--block end-->
+                    
+                    
+                </div><!--/span-->
+
+            </div><!--/row-->
+
+        </div><!--/.fluid-container-->
+<div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
+<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+
+
+  <!-- Placed at the end of the document so the pages load faster -->
+        <script src="../libs/jquery/jquery-1.8.3.min.js"></script>
+        <script src="../libs/jqueryui/jquery-ui-1.9.1.custom.min.js"></script>
+        <script src="javascripts/bootstrap.js"></script>
+        <script src="../src/javascripts/jquery.tocify.js"></script>
+        <script src="javascripts/prettify.js"></script>
+        <script>
+            $(function() {
+
+                var toc = $("#toc").tocify({
+                    selectors: "h2,h3,h4,h5"
+                }).data("toc-tocify");
+
+                prettyPrint();
+                $(".optionName").popover({trigger: "hover"});
+
+            });
+        </script>
+</body>
+</html>

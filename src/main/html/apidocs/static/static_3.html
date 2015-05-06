@@ -1,0 +1,41 @@
+<h1>Generic Introduction</h1>
+<div class="row-fluid">
+
+    <div class="span7 documentationBox">
+        <p>
+           <strong> </strong><br/>
+            37Coins provides a set of simple and powerful REST APIs to provide support for client side hierarchical deterministic (HD) multisignature wallets.
+            It alleviates the need for direct blockchain connectivity and simplify design and requirements for wallets.
+            The APIs provide the means to create and query watch only wallets, create and publish transactions, receive notifications and/or storage private keys.
+            <br/><br/>
+            The APIs are:<br/>
+            - Chains: A REST+JSON API to create and manage watch only wallets, generate new addresses, create (but not sign) and publish transactions, send notifications and query wallet balance and transaction list.<br/>
+            - Oracle: A REST+JSON API to create HD keychains, store seeds and sign transactions in a HD multisignature/multi factor authentication scenario. Users receive a phone call and enter a PIN to validate their identity.<br/>
+            - Socket: A websocket API that publishes "Chains" and "Oracle" notifications for client wallets that can not provide a callback URL<br/>
+            <br/>
+            The 3 APIs can be used together or isolated.<br/>
+            A bitcoin exchange can use just "Oracle" to store a key in a 2 of 3 multisig environment. <br/>
+            A web wallet can use "Chains" to manage the waller backend; use 2 of 2 multisig and store one key in the browser and another key in "Oracle"; and use "Socket" to receive notifications. <br/>
+            <br/>
+            There are "Chains" and "Oracle" clients written in Java.<br/>
+            <br/><br/>
+        </p>
+    </div>
+    <div class="span4 responseBox">
+       
+
+
+    </div>
+</div>
+
+
+
+<!--block start-->
+
+<!--block end-->
+
+
+
+<!--block start-->
+
+<!--block end-->

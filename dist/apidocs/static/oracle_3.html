@@ -1,0 +1,136 @@
+<h2>Introduction</h2>
+<div class="row-fluid">
+
+    <div class="span7 documentationBox">
+        <p>
+            <!--introduction goes here-->
+            Oracle is a REST+JSON API to create HD keychains, store seeds and sign transactions in a HD multisignature/multi factor authentication scenario. Users receive a phone call and enter a PIN to validate their identity.<br/>
+        </p>
+    </div>
+</div>
+
+<!--block start-->
+<h2>API Description</h2>
+<div class="container row-fluid">
+    <div class="span7 documentationBox">
+        <p>
+            <!--api description goes here-->
+        </p>
+    </div>
+    <div class="span4 color-white float-right">
+        <div class="signature-container margin-left-10">
+        <p>QA API Endpoint</p>
+        <pre class="highlight">http://oracle-qa.37coins.io/api</pre>
+        <p>Prod API Endpoint</p>
+        <pre class="highlight">https://oracle.37coins.io/api</pre>
+    </div>
+</div>
+</div>
+<!--block end-->
+
+
+
+<!--block start-->
+<h2>Authentication</h2>
+<div class="row-fluid">
+
+    <div class="span7 documentationBox">
+        <p>
+            "Oracle" expects some of the requests to be signed with a known RSA key. The client has to provide additional headers in the request:<br/>
+            - X-37Coins-Nonce : nonce used to generate the signature<br/>
+            - X-37Coins-Signature : a signature created by signing the word "token" + nonce string. Nonce is usually a timestamp. Example of string to be signed: token12569537329.<br/>
+        </p>
+    </div>
+    <div class="span4 responseBox">
+    </div>
+</div>
+<!--block end-->
+
+
+<!--block start-->
+<h2>Goals</h2>
+<div class="row-fluid">
+
+    <div class="span7 documentationBox">
+        <p>
+          A component that signs transactions in a HD multi-sig/multi factor authentication scenario. The user receives a phone call and enters a PIN to validate their identity.
+</p>
+    </div>
+    <div class="span4 responseBox">
+    </div>
+</div>
+<!--block end-->
+
+<!--block start-->
+<h2>Signature workflow </h2>
+<div class="row-fluid">
+
+    <div class="span7 documentationBox">
+        <p>
+        Let's assume a multisig 2 of 2 scenario, 1 private key is stored on the client side, 1 private key stored on Rambutan. The client generates a seed and calculates an xpub based on that seed. The client requests a new account to be created in Rambutan sending their xpub as a parameter. Rambutan creates a new account, generates another seed and sends that seed's xpub back to the client. When the client has to sign a tx, they sign with their own key and then send the partially signed tx to Rambutan to sign. Rambutan will make Plivo make them answer a phone call and once they enter a valid PIN, Rambutan will sign the tx with its key and send the tx back to the client
+</p>
+    </div>
+    <div class="span4 responseBox">
+    </div>
+</div>
+<!--block end-->
+
+<!--block start-->
+<h2>Architecture </h2>
+<div class="row-fluid">
+
+    <div class="span7 documentationBox">
+        <p>
+       Plivo (https://www.plivo.com): Voice API. Handles user calls
+
+HD Wallet: Rambutan uses Hierarchical Deterministic wallets
+
+bitcoinj: bitcoinj framework is used to handle the wallets and signatures
+
+Sandia: Is used as an alternative way to notify the client if they do not have a public IP. 
+        </p>
+    </div>
+    <div class="span4 responseBox">
+    </div>
+</div>
+<!--block end-->
+
+
+<!--block start-->
+<h2>Signed requests from trusted clients </h2>
+<div class="row-fluid">
+
+    <div class="span7 documentationBox">
+        <p>
+     The API expects some of the requests to be signed with known RSA key. Client has to provide additional headers in request:
+
+- ``X-37Coins-Nonce`` : nonce used to generate signature in given request
+
+- ``X-37Coins-Signature`` : signature created by signing ``API_TOKEN + nonce`` string. ``API_TOKEN`` is just fixed string for now and ``nonce`` is usually a timestamp. Example of string to be signed: ``token12569537329``
+
+Signing should be done by private key whose public counterpart is known for Rambutan (specified in ``partnersPubKeys`` ENV variable)
+  </p>
+    </div>
+    <div class="span4 responseBox">
+    </div>
+</div>
+<!--block end-->
+
+
+<!--block start-->
+<h2>Functional requirements </h2>
+<div class="row-fluid">
+
+    <div class="span7 documentationBox">
+        <p>
+ A REST+JSON API.
+  </p>
+    </div>
+    <div class="span4 responseBox">
+    </div>
+</div>
+<!--block end-->
+
+<!-- Section Change Log does not make any sense so far -->
+
+<h2>API Endpoints</h2>
