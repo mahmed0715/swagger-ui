@@ -11,7 +11,7 @@ class ResourceView extends Backbone.View
 
 
     $(@el).html(Handlebars.templates.resource(@model))
-
+    
     # Render each operation
     for operation in @model.operationsArray
       counter = 0

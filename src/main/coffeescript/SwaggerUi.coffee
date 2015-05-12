@@ -62,7 +62,7 @@ class SwaggerUi extends Backbone.Router
     @headerView.update(url)
 
     @api = new SwaggerClient(@options)
-
+   
   # collapse all sections
   collapseAll:() ->
     Docs.collapseEndpointListForResource('')

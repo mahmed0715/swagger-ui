@@ -32,15 +32,13 @@
                     url = decodeURIComponent(url[1]);
                 } else {
                     url = [
-                           "http://oracle-qa.37coins.io/apidocs/account.json",
-                       "apidocs/swagger.json",
-                        "apidocs/petstore.json"
+                        "apidocs/swagger.json",
                     ];
                 }
                 if (url) {
                     for (var index in url) {
-                        if(!$('#swagger-ui-container-'+index).length){
-                            $('#swagger').append('<div id="swagger-ui-container-'+index+'" class="swagger-ui-wrap row-fluid"></div>');
+                        if (!$('#swagger-ui-container-' + index).length) {
+                            $('#swagger').append('<div id="swagger-ui-container-' + index + '" class="swagger-ui-wrap row-fluid"></div>');
                         }
                         window.swaggerUi = new SwaggerUi({
                             url: url[index],
@@ -59,14 +57,6 @@
                                 $('pre code').each(function(i, e) {
                                     hljs.highlightBlock(e)
                                 });
-                                //tocify code
-//                        var toc = $("#toc").tocify({
-//                            selectors: "h1,h2,h3",
-//                            scrollTo:100
-//                        }).data("toc-tocify");
-//
-//                        prettyPrint();
-//                        $(".optionName").popover({trigger: "hover"});
                             },
                             onFailure: function(data) {
                                 log("Unable to Load SwaggerUI");
@@ -76,74 +66,9 @@
                         }).load();
                     }
                 }
-//                window.swaggerUi = new SwaggerUi({
-//                    url: url,
-//                    dom_id: "swagger-ui-container",
-//                    supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
-//                    onComplete: function(swaggerApi, swaggerUi) {
-//                        if (typeof initOAuth == "function") {
-//                            /*
-//                             initOAuth({
-//                             clientId: "your-client-id",
-//                             realm: "your-realms",
-//                             appName: "your-app-name"
-//                             });
-//                             */
-//                        }
-//                        $('pre code').each(function(i, e) {
-//                            hljs.highlightBlock(e)
-//                        });
-//                        //tocify code
-////                        var toc = $("#toc").tocify({
-////                            selectors: "h1,h2,h3",
-////                            scrollTo:100
-////                        }).data("toc-tocify");
-////
-////                        prettyPrint();
-////                        $(".optionName").popover({trigger: "hover"});
-//                    },
-//                    onFailure: function(data) {
-//                        log("Unable to Load SwaggerUI");
-//                    },
-//                    docExpansion: "none",
-//                    sorter: "alpha"
-//                });
-//                window.swaggerUi2 = new SwaggerUi({
-//                    url: "apidocs/petstore.json",
-//                    dom_id: "swagger-ui-container2",
-//                    supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
-//                    onComplete: function(swaggerApi, swaggerUi) {
-//                        if (typeof initOAuth == "function") {
-//                            /*
-//                             initOAuth({
-//                             clientId: "your-client-id",
-//                             realm: "your-realms",
-//                             appName: "your-app-name"
-//                             });
-//                             */
-//                        }
-//                        $('pre code').each(function(i, e) {
-//                            hljs.highlightBlock(e)
-//                        });
-//                        //tocify code
-////                        var toc = $("#toc").tocify({
-////                            selectors: "h1,h2,h3",
-////                            scrollTo:100
-////                        }).data("toc-tocify");
-////
-////                        prettyPrint();
-////                        $(".optionName").popover({trigger: "hover"});
-//                    },
-//                    onFailure: function(data) {
-//                        log("Unable to Load SwaggerUI");
-//                    },
-//                    docExpansion: "none",
-//                    sorter: "alpha"
-//                }).load();
                 window.resourceCounter = 1;
                 $(document).on('loaded-static', function() {
-                    console.log("window.resourceCounter:",window.resourceCounter," window.rC:",window.rC);
-                    if (window.rC >= url.length && window.resourceCounter >= window.rC) {
+                    if (window.resourceCounter >= url.length && window.resourceCounter >= $('.resource').length) {
                         console.log('triggered');
                         toc = $("#toc").tocify({
                             selectors: "h1,h2,h3,h4",
@@ -248,7 +173,7 @@
 
                     <!--<div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>-->
                     <div id="swagger"></div>
-                    
+
                     <span id="web-widget"></span>
                 </div><!--/span-->
 
@@ -264,18 +189,5 @@
         <script src="javascripts/bootstrap.js"></script>
         <script src="javascripts/jquery.tocify.js"></script>
         <script src="javascripts/prettify.js"></script>
-        <script>
-            $(function() {
-
-                setTimeout(function() {
-//                    var toc = $("#toc").tocify({
-//                        selectors: "h2,h3,h4,h5"
-//                    }).data("toc-tocify");
-//
-//                    prettyPrint();
-//                    $(".optionName").popover({trigger: "hover"});
-                }, 2000);
-            });
-        </script>
     </body>
 </html>

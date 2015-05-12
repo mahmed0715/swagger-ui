@@ -1,13 +1,15 @@
 <h1>{{id}} API Docs</h1>
 <br>
-<div id="{{id}}_api_desc" class="row-fluid"><script>$.get('apidocs/static/{{id}}.html',function(data){$('#{{id}}_api_desc').html(data);$(document).trigger('loaded-static');});</script></div>
+
+<div id="{{id}}_api_desc" class="row-fluid"><script>$.get('{{staticPath}}/{{id}}.html',function(data){$('#{{id}}_api_desc').html(data);}).always(function() {$(document).trigger('loaded-static');});;</script></div>
 
 <br>
+ {{#if summary}}
  <h2>
    
    {{{summary}}}
   </h2> 
-
+ {{/if}} 
  
     <p>{{#summary}}  {{/summary}}{{{summary}}}</p>
   

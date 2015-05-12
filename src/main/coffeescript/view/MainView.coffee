@@ -60,8 +60,10 @@ class MainView extends Backbone.View
   addResource: (resource, auths) ->
     # Render a resource and add it to resources li
     resource.id = resource.id.replace(/\s/g, '_')
+    resource.staticPath = @model.url.substring(@model.url.lastIndexOf('/'),0)
+    
     resourceView = new ResourceView({
-      model: resource, 
+      model: resource,
       tagName: 'li', 
       id: 'resource_' + resource.id, 
       className: 'resource', 
